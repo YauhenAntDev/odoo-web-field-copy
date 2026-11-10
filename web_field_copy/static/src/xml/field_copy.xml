@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web_field_copy.CopyButton" t-inherit="web.CopyButton" t-inherit-mode="primary">
+        <xpath expr="//button" position="attributes">
+            <attribute name="aria-label">Copy to clipboard</attribute>
+            <attribute name="title">Copy to clipboard</attribute>
+        </xpath>
+        <xpath expr="//span[hasclass('mx-1')]" position="attributes">
+            <attribute name="aria-hidden">true</attribute>
+        </xpath>
+    </t>
+
+    <t t-name="web_field_copy.CharField" t-inherit="web.CharField" t-inherit-mode="extension">
+        <xpath expr="//span[@t-esc='formattedValue']" position="after">
+            <CopyButton
+                t-if="!props.isPassword"
+                className="'o_field_copy_button'"
+                content="copyContent"
+                successText.translate="Copied"
+            />
+        </xpath>
+        <xpath expr="//div[hasclass('o_field_input_buttons')]" position="inside">
+            <CopyButton
+                t-if="!props.isPassword"
+                className="'o_field_copy_button'"
+                content="copyContent"
+                successText.translate="Copied"
+            />
+        </xpath>
+    </t>
+
+    <t t-name="web_field_copy.TextField" t-inherit="web.TextField" t-inherit-mode="extension">
+        <xpath expr="//span[@t-esc=&quot;props.record.data[props.name] or ''&quot;]" position="after">
+            <CopyButton
+                className="'o_field_copy_button'"
+                content="copyContent"
+                successText.translate="Copied"
+            />
+        </xpath>
+        <xpath expr="//div[hasclass('o_field_input_buttons')]" position="inside">
+            <CopyButton
+                className="'o_field_copy_button'"
+                content="copyContent"
+                successText.translate="Copied"
+            />
+        </xpath>
+    </t>
+
+</templates>

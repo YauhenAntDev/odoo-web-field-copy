@@ -1,0 +1,62 @@
+// Match only the immediate Char/Text field, not an ancestor x2many widget.
+.o_field_widget:has(
+    > .o_field_copy_button,
+    > .o_field_input_buttons > .o_field_copy_button,
+    > div > .o_field_input_buttons > .o_field_copy_button
+) {
+    .o_field_copy_button {
+        // Keep the button in the tab order while it is visually hidden.
+        visibility: visible;
+        opacity: 0;
+        pointer-events: none;
+        // Reveal immediately when tabbing to the button.
+    }
+
+    &:hover .o_field_copy_button,
+    &:focus-within .o_field_copy_button {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .o_field_input_buttons .o_field_copy_button {
+        padding: 0 0.4rem;
+    }
+
+    .o_field_copy_button:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+        .o_field_copy_button {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+
+// Char inputs live directly in the field widget; Text inputs have a wrapper.
+// Give the input and all its buttons separate space, including translated labels.
+.o_field_widget:has(> .o_input + .o_field_input_buttons > .o_field_copy_button),
+.o_field_widget > div:has(> .o_input + .o_field_input_buttons > .o_field_copy_button) {
+    display: flex;
+
+    > .o_input {
+        flex: 1 1 0%;
+        min-width: 0;
+    }
+
+    > textarea.o_input {
+        // Odoo sets the wrapper height during autoresize. Stretching to that
+        // height feeds the previous measurement back into the next resize.
+        align-self: flex-start;
+    }
+
+    > .o_field_input_buttons {
+        position: static;
+        flex: 0 0 auto;
+        height: auto;
+        visibility: visible;
+    }
+}
