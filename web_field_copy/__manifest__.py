@@ -6,7 +6,7 @@
     'summary': 'Add copy-to-clipboard buttons to Char and Text fields',
     'description': 'Copy readonly and live editable Char/Text values in Odoo 19, '
                    'with keyboard and touch access and password exclusion.',
-    'author': 'Yauhen Antonau',
+    'author': 'Yauhen Antonau yauhenantdeveloper@gmail.com',
     'license': 'LGPL-3',
     'depends': ['web'],
     'assets': {
